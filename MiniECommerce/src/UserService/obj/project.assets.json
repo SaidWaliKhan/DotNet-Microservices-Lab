@@ -2891,11 +2891,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/said-wali-ayyan/Desktop/MiniECommerce/src/UserService/UserService.csproj",
+      "projectUniqueName": "/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/UserService/UserService.csproj",
       "projectName": "UserService",
-      "projectPath": "/home/said-wali-ayyan/Desktop/MiniECommerce/src/UserService/UserService.csproj",
+      "projectPath": "/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/UserService/UserService.csproj",
       "packagesPath": "/home/said-wali-ayyan/.nuget/packages/",
-      "outputPath": "/home/said-wali-ayyan/Desktop/MiniECommerce/src/UserService/obj/",
+      "outputPath": "/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/UserService/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/said-wali-ayyan/.nuget/NuGet/NuGet.Config"

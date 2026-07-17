@@ -16,6 +16,7 @@ builder.Services.AddDbContext<OrderDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")
         ?? "Data Source=order.db"));
 
+    
 // Register ProductServiceClient as a "typed HttpClient".
 builder.Services.AddHttpClient<ProductServiceClient>(client =>
 {
@@ -31,6 +32,15 @@ builder.Services.AddHttpClient<ProductServiceClient>(client =>
     .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromMilliseconds(500 * retryAttempt)));
 
 var app = builder.Build();
+
+
+
+// 2. we create auto create the db if not created ..
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<OrderDbContext>();
+    db.Database.EnsureCreated();
+}
 
 
 if (app.Environment.IsDevelopment())

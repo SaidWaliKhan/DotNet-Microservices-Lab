@@ -108,11 +108,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/said-wali-ayyan/Desktop/MiniECommerce/src/ApiGateway/ApiGateway.csproj",
+      "projectUniqueName": "/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/ApiGateway/ApiGateway.csproj",
       "projectName": "ApiGateway",
-      "projectPath": "/home/said-wali-ayyan/Desktop/MiniECommerce/src/ApiGateway/ApiGateway.csproj",
+      "projectPath": "/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/ApiGateway/ApiGateway.csproj",
       "packagesPath": "/home/said-wali-ayyan/.nuget/packages/",
-      "outputPath": "/home/said-wali-ayyan/Desktop/MiniECommerce/src/ApiGateway/obj/",
+      "outputPath": "/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/ApiGateway/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/said-wali-ayyan/.nuget/NuGet/NuGet.Config"

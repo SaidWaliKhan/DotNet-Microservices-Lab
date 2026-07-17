@@ -1,0 +1,35 @@
+
+services:
+  product-service:
+    build: ./src/ProductService
+    container_name: product-service
+    ports:
+      - "5001:8080"   # host:container - so you can also hit it directly for testing
+
+  order-service:
+    build: ./src/OrderService
+    container_name: order-service
+    ports:
+      - "5002:8080"
+    environment:
+      # Inside Docker's network, services find each other by container name,
+      # not localhost. This overrides the appsettings.json value.
+      - Services__ProductService=http://product-service:8080
+    depends_on:
+      - product-service
+
+  user-service:
+    build: ./src/UserService
+    container_name: user-service
+    ports:
+      - "5003:8080"
+
+  api-gateway:
+    build: ./src/ApiGateway
+    container_name: api-gateway
+    ports:
+      - "5000:8080"   # this is the ONLY port your client/Postman should call
+    depends_on:
+      - product-service
+      - order-service
+      - user-service

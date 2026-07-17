@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EEi8UqMEuo8=",
+  "dgSpecHash": "BEcL5GvYIUQ=",
   "success": true,
-  "projectFilePath": "/home/said-wali-ayyan/Desktop/MiniECommerce/src/UserService/UserService.csproj",
+  "projectFilePath": "/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/UserService/UserService.csproj",
   "expectedPackageFiles": [
     "/home/said-wali-ayyan/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/home/said-wali-ayyan/.nuget/packages/microsoft.aspnetcore.openapi/10.0.9/microsoft.aspnetcore.openapi.10.0.9.nupkg.sha512",
@@ -48,9 +48,9 @@
       "code": "NU1903",
       "level": "Warning",
       "message": "Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.11 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q",
-      "projectPath": "/home/said-wali-ayyan/Desktop/MiniECommerce/src/UserService/UserService.csproj",
+      "projectPath": "/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/UserService/UserService.csproj",
       "warningLevel": 1,
-      "filePath": "/home/said-wali-ayyan/Desktop/MiniECommerce/src/UserService/UserService.csproj",
+      "filePath": "/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/UserService/UserService.csproj",
       "libraryId": "SQLitePCLRaw.lib.e_sqlite3",
       "targetGraphs": [
         "net10.0"

@@ -14,6 +14,14 @@ builder.Services.AddDbContext<UserDbContext>(options =>
 var app = builder.Build();
 
 
+// 2. we create auto create the db if not created ..
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<UserDbContext>();
+    db.Database.EnsureCreated();
+}
+
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

@@ -1,0 +1,21 @@
+# Build results
+bin/
+obj/
+
+# .NET
+*.user
+*.suo
+
+# SQLite databases created at runtime - each dev/machine generates their own
+*.db
+*.db-shm
+*.db-wal
+
+# IDE
+.vs/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db

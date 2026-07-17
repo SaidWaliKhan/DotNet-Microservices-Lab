@@ -2891,11 +2891,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/said-wali-ayyan/Desktop/MiniECommerce/src/ProductService/ProductService.csproj",
+      "projectUniqueName": "/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/ProductService/ProductService.csproj",
       "projectName": "ProductService",
-      "projectPath": "/home/said-wali-ayyan/Desktop/MiniECommerce/src/ProductService/ProductService.csproj",
+      "projectPath": "/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/ProductService/ProductService.csproj",
       "packagesPath": "/home/said-wali-ayyan/.nuget/packages/",
-      "outputPath": "/home/said-wali-ayyan/Desktop/MiniECommerce/src/ProductService/obj/",
+      "outputPath": "/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/ProductService/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/said-wali-ayyan/.nuget/NuGet/NuGet.Config"

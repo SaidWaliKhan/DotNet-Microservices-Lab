@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/said-wali-ayyan/Desktop/MiniECommerce/src/OrderService/OrderService.csproj": {}
+    "/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/OrderService.csproj": {}
   },
   "projects": {
-    "/home/said-wali-ayyan/Desktop/MiniECommerce/src/OrderService/OrderService.csproj": {
+    "/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/OrderService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/said-wali-ayyan/Desktop/MiniECommerce/src/OrderService/OrderService.csproj",
+        "projectUniqueName": "/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/OrderService.csproj",
         "projectName": "OrderService",
-        "projectPath": "/home/said-wali-ayyan/Desktop/MiniECommerce/src/OrderService/OrderService.csproj",
+        "projectPath": "/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/OrderService.csproj",
         "packagesPath": "/home/said-wali-ayyan/.nuget/packages/",
-        "outputPath": "/home/said-wali-ayyan/Desktop/MiniECommerce/src/OrderService/obj/",
+        "outputPath": "/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/said-wali-ayyan/.nuget/NuGet/NuGet.Config"
