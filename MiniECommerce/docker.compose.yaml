@@ -15,6 +15,8 @@ services:
       # Inside Docker's network, services find each other by container name,
       # not localhost. This overrides the appsettings.json value.
       - Services__ProductService=http://product-service:8080
+      - Services__UserService=http://user-service:8080
+
     depends_on:
       - product-service
 

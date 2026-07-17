@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OrderService.Data;
 using OrderService.Models;
-using OrderService.Services;
+using OrderService.Services.HttpServices;
 
 namespace OrderService.Controllers;
 
@@ -12,11 +12,13 @@ public class OrdersController : ControllerBase
 {
     private readonly OrderDbContext _db;
     private readonly ProductServiceClient _productClient;
+    private readonly UserServiceClient _userServiceClient;
 
-    public OrdersController(OrderDbContext db, ProductServiceClient productClient)
+    public OrdersController(OrderDbContext db, ProductServiceClient productClient, UserServiceClient userServiceClient)
     {
         _db = db;
         _productClient = productClient;
+        _userServiceClient = userServiceClient;
     }
 
     // GET /api/orders
@@ -30,6 +32,11 @@ public class OrdersController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Order>> Create(CreateOrderRequest request)
     {
+
+        var user = await _userServiceClient.GetUserAsync(request.UserId);
+        if (user is null)
+            return NotFound($"User {request.UserId} not found.");
+
         var product = await _productClient.GetProductAsync(request.ProductId);
         if (product is null)
             return NotFound($"Product {request.ProductId} not found.");

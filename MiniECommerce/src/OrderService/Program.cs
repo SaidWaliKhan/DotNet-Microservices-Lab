@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using OrderService.Data;
-using OrderService.Services;
+using OrderService.Services.HttpServices;
 using Polly;
 using Polly.Extensions.Http;
 
@@ -16,12 +16,21 @@ builder.Services.AddDbContext<OrderDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")
         ?? "Data Source=order.db"));
 
-    
+
 // Register ProductServiceClient as a "typed HttpClient".
 builder.Services.AddHttpClient<ProductServiceClient>(client =>
 {
     var baseUrl = builder.Configuration["Services:ProductService"]
         ?? "http://localhost:5001";
+    client.BaseAddress = new Uri(baseUrl);
+});
+
+// for user 
+
+builder.Services.AddHttpClient<UserServiceClient>(client =>
+{
+    var baseUrl = builder.Configuration["Services:UserService"]
+        ?? "http://localhost:5003";
     client.BaseAddress = new Uri(baseUrl);
 })
 

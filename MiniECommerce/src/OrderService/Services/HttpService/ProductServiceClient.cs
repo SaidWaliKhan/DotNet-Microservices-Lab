@@ -1,4 +1,6 @@
-namespace OrderService.Services;
+using OrderService.Services.DTOs;
+
+namespace OrderService.Services.HttpServices;
 
 public class ProductServiceClient
 {
