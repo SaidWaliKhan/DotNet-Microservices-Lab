@@ -307,3 +307,12 @@
 /home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/obj/Debug/net10.0/OrderService.pdb
 /home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/obj/Debug/net10.0/OrderService.genruntimeconfig.cache
 /home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/obj/Debug/net10.0/ref/OrderService.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/bin/Debug/net10.0/Serilog.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/bin/Debug/net10.0/Serilog.AspNetCore.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/bin/Debug/net10.0/Serilog.Extensions.Hosting.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/bin/Debug/net10.0/Serilog.Extensions.Logging.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/bin/Debug/net10.0/Serilog.Formatting.Compact.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/bin/Debug/net10.0/Serilog.Settings.Configuration.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/bin/Debug/net10.0/Serilog.Sinks.Console.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/bin/Debug/net10.0/Serilog.Sinks.Debug.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/bin/Debug/net10.0/Serilog.Sinks.File.dll

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UserService.Data;
+using UserService.DTO;
 using UserService.Models;
 
 namespace UserService.Controllers;
@@ -31,10 +32,33 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<User>> Create(User user)
+    public async Task<ActionResult<User>> Create(CreateUserRequest request)
     {
+        // Fast path: catches the common case with a clean, cheap check.
+        var emailExists = await _db.Users.AnyAsync(u => u.Email == request.Email);
+        if (emailExists)
+            return Conflict($"A user with email '{request.Email}' already exists.");
+
+        var user = new User
+        {
+            Name = request.Name,
+            Email = request.Email
+        };
+
         _db.Users.Add(user);
-        await _db.SaveChangesAsync();
+
+        try
+        {
+            await _db.SaveChangesAsync();
+        }
+        catch (DbUpdateException)
+        {
+            // Backstop for the race condition: if two requests slipped past the
+            // AnyAsync check at nearly the same time, the DB's unique index
+            // rejects the second insert here instead of corrupting your data.
+            return Conflict($"A user with email '{request.Email}' already exists.");
+        }
+
         return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
     }
 

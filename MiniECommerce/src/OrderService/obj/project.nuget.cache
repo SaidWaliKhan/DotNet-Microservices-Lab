@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "IRu+nNQRNhM=",
+  "dgSpecHash": "7a89dkzub/U=",
   "success": true,
   "projectFilePath": "/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/OrderService.csproj",
   "expectedPackageFiles": [
@@ -30,6 +30,15 @@
     "/home/said-wali-ayyan/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
     "/home/said-wali-ayyan/.nuget/packages/polly/7.2.4/polly.7.2.4.nupkg.sha512",
     "/home/said-wali-ayyan/.nuget/packages/polly.extensions.http/3.0.0/polly.extensions.http.3.0.0.nupkg.sha512",
+    "/home/said-wali-ayyan/.nuget/packages/serilog/3.1.1/serilog.3.1.1.nupkg.sha512",
+    "/home/said-wali-ayyan/.nuget/packages/serilog.aspnetcore/8.0.1/serilog.aspnetcore.8.0.1.nupkg.sha512",
+    "/home/said-wali-ayyan/.nuget/packages/serilog.extensions.hosting/8.0.0/serilog.extensions.hosting.8.0.0.nupkg.sha512",
+    "/home/said-wali-ayyan/.nuget/packages/serilog.extensions.logging/8.0.0/serilog.extensions.logging.8.0.0.nupkg.sha512",
+    "/home/said-wali-ayyan/.nuget/packages/serilog.formatting.compact/2.0.0/serilog.formatting.compact.2.0.0.nupkg.sha512",
+    "/home/said-wali-ayyan/.nuget/packages/serilog.settings.configuration/8.0.0/serilog.settings.configuration.8.0.0.nupkg.sha512",
+    "/home/said-wali-ayyan/.nuget/packages/serilog.sinks.console/5.0.1/serilog.sinks.console.5.0.1.nupkg.sha512",
+    "/home/said-wali-ayyan/.nuget/packages/serilog.sinks.debug/2.0.0/serilog.sinks.debug.2.0.0.nupkg.sha512",
+    "/home/said-wali-ayyan/.nuget/packages/serilog.sinks.file/5.0.0/serilog.sinks.file.5.0.0.nupkg.sha512",
     "/home/said-wali-ayyan/.nuget/packages/sqlitepclraw.bundle_e_sqlite3/2.1.11/sqlitepclraw.bundle_e_sqlite3.2.1.11.nupkg.sha512",
     "/home/said-wali-ayyan/.nuget/packages/sqlitepclraw.core/2.1.11/sqlitepclraw.core.2.1.11.nupkg.sha512",
     "/home/said-wali-ayyan/.nuget/packages/sqlitepclraw.lib.e_sqlite3/2.1.11/sqlitepclraw.lib.e_sqlite3.2.1.11.nupkg.sha512",

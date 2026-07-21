@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductService.Data;
+using ProductService.DTOs;
 using ProductService.Models;
 
 namespace ProductService.Controllers;
@@ -34,8 +35,17 @@ public class ProductsController : ControllerBase
 
     // POST /api/products
     [HttpPost]
-    public async Task<ActionResult<Product>> Create(Product product)
+    public async Task<ActionResult<Product>> Create(CreateProductRequest request)
     {
+
+        var product = new Product
+        {
+            Name = request.Name,
+            Price = request.Price,
+            StockQuantity = request.StockQuantity
+        };
+
+
         _db.Products.Add(product);
         await _db.SaveChangesAsync();
         return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
@@ -45,16 +55,39 @@ public class ProductsController : ControllerBase
     [HttpPut("{id}/reduce-stock/{quantity}")]
     public async Task<IActionResult> ReduceStock(int id, int quantity)
     {
-        var product = await _db.Products.FindAsync(id);
-        if (product is null) return NotFound();
+        if (quantity <= 0)
+            return BadRequest("Quntity Must be greater than Zero");
 
-        if (product.StockQuantity < quantity)
-            return BadRequest($"Not enough stock. Available: {product.StockQuantity}");
+        var rowAffected = await _db.Products
+        .Where(p => p.Id == id && p.StockQuantity >= quantity)
+        .ExecuteUpdateAsync(set =>
+        set.SetProperty(p => p.StockQuantity, p => p.StockQuantity - quantity));
 
-        product.StockQuantity -= quantity;
-        await _db.SaveChangesAsync();
-        return Ok(product);
+        if (rowAffected == 0)
+        {
+            var exist = await _db.Products.AnyAsync(p => p.Id == id);
+            return exist ? BadRequest("Not enough stock") : NotFound();
+        }
+
+        return Ok();
+
     }
+    [HttpPut("{id}/restore-stock/{quantity}")]
+    public async Task<IActionResult> RestoreStock(int id, int quantity)
+    {
+        if (quantity <= 0)
+            return BadRequest("Quantity must be greater than 0.");
+
+        var rowsAffected = await _db.Products
+            .Where(p => p.Id == id)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(p => p.StockQuantity, p => p.StockQuantity + quantity));
+
+        return rowsAffected == 0 ? NotFound() : Ok();
+    }
+
+
+
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)

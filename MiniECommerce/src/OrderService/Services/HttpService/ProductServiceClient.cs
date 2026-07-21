@@ -33,6 +33,13 @@ public class ProductServiceClient
         return response.IsSuccessStatusCode;
     }
 
+    public async Task<bool> RestoreStockAsync(int productId, int quantity)
+    {
+        var response = await _httpClient.PutAsync(
+            $"/api/products/{productId}/restore-stock/{quantity}", null);
+        return response.IsSuccessStatusCode;
+    }
+
 
 
 }
