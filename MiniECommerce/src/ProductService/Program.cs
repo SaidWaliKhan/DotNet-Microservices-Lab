@@ -12,7 +12,7 @@ builder.Services.AddSwaggerGen();
 // Each microservice gets its OWN database file - that's the whole point.
 builder.Services.AddDbContext<ProductDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")
-        ?? "Data Source=product.db"));
+        ?? "Data Source = product.db"));
 
 var app = builder.Build();
 
@@ -20,7 +20,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ProductDbContext>();
-    db.Database.EnsureCreated();
+    db.Database.Migrate();
 }
 
 // 3. HTTP request pipeline 

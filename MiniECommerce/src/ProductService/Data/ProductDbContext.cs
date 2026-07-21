@@ -9,7 +9,7 @@ public class ProductDbContext : DbContext
 
     public DbSet<Product> Products => Set<Product>();
 
-    // Seed a couple of products so we have something to test with immediately
+    // At firs we seed a couple of products so we have something to test with immediately
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Product>().HasData(

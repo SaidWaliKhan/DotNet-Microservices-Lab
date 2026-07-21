@@ -41,9 +41,7 @@ public class ProductsController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
     }
 
-    // PUT /api/products/1/reduce-stock/2
-    // This is the endpoint OrderService will call when someone places an order,
-    // to check AND reduce stock. This is our first inter-service communication!
+
     [HttpPut("{id}/reduce-stock/{quantity}")]
     public async Task<IActionResult> ReduceStock(int id, int quantity)
     {
@@ -57,4 +55,20 @@ public class ProductsController : ControllerBase
         await _db.SaveChangesAsync();
         return Ok(product);
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var product = await _db.Products.FindAsync(id);
+        if (product == null)
+            return NotFound();
+
+        _db.Products.Remove(product);
+        await _db.SaveChangesAsync();
+
+        return NoContent(); 
+        
+    }
+
+    
 }

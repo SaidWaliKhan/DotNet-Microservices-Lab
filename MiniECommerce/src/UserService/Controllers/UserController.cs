@@ -37,4 +37,33 @@ public class UsersController : ControllerBase
         await _db.SaveChangesAsync();
         return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
     }
+
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var user = await _db.Users.FindAsync(id);
+
+        if (user is null)
+            return NotFound();
+
+        _db.Users.Remove(user);
+
+        await _db.SaveChangesAsync();
+
+        return NoContent();
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(int id, User updateUser)
+    {
+        var user = await _db.Users.FindAsync(id);
+        if (user == null) return NotFound();
+
+        user.Name = updateUser.Name;
+        user.Email = updateUser.Email;
+
+        await _db.SaveChangesAsync();
+        return Ok(user);
+    }
 }

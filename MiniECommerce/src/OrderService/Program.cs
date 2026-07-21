@@ -14,7 +14,7 @@ builder.Services.AddSwaggerGen();
 // register db here
 builder.Services.AddDbContext<OrderDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")
-        ?? "Data Source=order.db"));
+        ?? "Data Source = order.db"));
 
 
 // Register ProductServiceClient as a "typed HttpClient".
@@ -23,10 +23,18 @@ builder.Services.AddHttpClient<ProductServiceClient>(client =>
     var baseUrl = builder.Configuration["Services:ProductService"]
         ?? "http://localhost:5001";
     client.BaseAddress = new Uri(baseUrl);
-});
+})
+
+// This is the resilience part: if ProductService is briefly unavailable
+// (e.g. still starting up in Docker), retry 3 times before giving up.
+
+.AddPolicyHandler(HttpPolicyExtensions
+    .HandleTransientHttpError()
+    .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromMilliseconds(500 * retryAttempt)));
+
+
 
 // for user 
-
 builder.Services.AddHttpClient<UserServiceClient>(client =>
 {
     var baseUrl = builder.Configuration["Services:UserService"]
@@ -34,21 +42,20 @@ builder.Services.AddHttpClient<UserServiceClient>(client =>
     client.BaseAddress = new Uri(baseUrl);
 })
 
-// This is the resilience part: if ProductService is briefly unavailable
-// (e.g. still starting up in Docker), retry 3 times before giving up.
 .AddPolicyHandler(HttpPolicyExtensions
     .HandleTransientHttpError()
     .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromMilliseconds(500 * retryAttempt)));
 
+
+
 var app = builder.Build();
 
 
-
-// 2. we create auto create the db if not created ..
+//  we create auto create the db if not created ..
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<OrderDbContext>();
-    db.Database.EnsureCreated();
+    db.Database.Migrate();
 }
 
 
