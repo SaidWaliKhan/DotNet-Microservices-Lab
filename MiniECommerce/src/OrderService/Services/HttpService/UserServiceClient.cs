@@ -1,6 +1,6 @@
 using OrderService.Services.DTOs;
 
-namespace OrderService.Services.HttpServices;
+namespace OrderService.Services.HttpService;
 
 public class UserServiceClient
 {

@@ -38,6 +38,26 @@ try
         options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")
             ?? "Data Source = product.db"));
 
+    // add the jwt 
+    var jwtKey = builder.Configuration["Jwt:Key"]
+        ?? throw new InvalidOperationException("Jwt:Key is not configured.");
+
+    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                ValidAudience = builder.Configuration["Jwt:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+            };
+        });
+
+    builder.Services.AddAuthorization();
 
     var app = builder.Build();
 
@@ -50,10 +70,8 @@ try
 
 
     app.UseMiddleware<CorrelationIdMiddleware>();
-
     app.UseSerilogRequestLogging();
     // now add the Excepptionhandler middleware here
-
     app.UseMiddleware<ExceptionHandlingMiddleware>();
 
     // 3. HTTP request pipeline 
@@ -62,7 +80,8 @@ try
         app.UseSwagger();
         app.UseSwaggerUI();
     }
-   
+
+    app.UseAuthentication();
     app.UseAuthorization();
     app.MapControllers();
 

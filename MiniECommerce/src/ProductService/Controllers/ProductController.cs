@@ -35,6 +35,7 @@ public class ProductsController : ControllerBase
 
     // POST /api/products
     [HttpPost]
+    [Authorize]
     public async Task<ActionResult<Product>> Create(CreateProductRequest request)
     {
 
@@ -53,6 +54,7 @@ public class ProductsController : ControllerBase
 
 
     [HttpPut("{id}/reduce-stock/{quantity}")]
+    [Authorize]
     public async Task<IActionResult> ReduceStock(int id, int quantity)
     {
         if (quantity <= 0)
@@ -73,6 +75,7 @@ public class ProductsController : ControllerBase
 
     }
     [HttpPut("{id}/restore-stock/{quantity}")]
+    [Authorize]
     public async Task<IActionResult> RestoreStock(int id, int quantity)
     {
         if (quantity <= 0)

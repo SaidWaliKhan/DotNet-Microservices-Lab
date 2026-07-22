@@ -22,10 +22,7 @@ public class CreateOrderRequest
 {
     [Range(1, int.MaxValue, ErrorMessage = "User must be a valid positive Id")]
     public int ProductId { get; set; }
+    
     [Range(1, int.MaxValue, ErrorMessage = "Product must be a valid positive Id")]
-
     public int Quantity { get; set; }
-    [Range(1, 100, ErrorMessage = "User must be between 1 and 100")]
-
-    public int UserId { get; set; }
 }

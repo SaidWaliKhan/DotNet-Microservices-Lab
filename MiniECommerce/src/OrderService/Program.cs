@@ -1,8 +1,11 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using OrderService.Data;
 using OrderService.Handlers;
 using OrderService.Middleware;
-using OrderService.Services.HttpServices;
+using OrderService.Services.HttpService;
 using Polly;
 using Polly.Extensions.Http;
 using Serilog;
@@ -57,8 +60,7 @@ try
 
     .AddPolicyHandler(HttpPolicyExtensions
     .HandleTransientHttpError()
-    .CircuitBreakerAsync(handledEventsAllowedBeforeBreaking: 3, durationOfBreak: TimeSpan.FromSeconds(30)));
-    
+    .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromMilliseconds(500 * retryAttempt)));
 
     // for user 
     builder.Services.AddHttpClient<UserServiceClient>(client =>
@@ -66,6 +68,7 @@ try
         var baseUrl = builder.Configuration["Services:UserService"]
             ?? "http://localhost:5003";
         client.BaseAddress = new Uri(baseUrl);
+        client.Timeout = TimeSpan.FromSeconds(5);
     })
 
     .AddHttpMessageHandler<CorrelationIdDelegatingHandler>()
@@ -74,7 +77,25 @@ try
     .HandleTransientHttpError()
     .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromMilliseconds(500 * retryAttempt)));
 
+    //dd the jwt 
+    var jwtSettings = builder.Configuration["Jwt:SigningKey"] ??
+    throw new InvalidCastException("Jwt is missing in configuration");
 
+    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+       .AddJwtBearer(options =>
+       {
+           options.TokenValidationParameters = new TokenValidationParameters
+           {
+               ValidateIssuer = true,
+               ValidateAudience = true,
+               ValidateLifetime = true,
+               ValidateIssuerSigningKey = true,
+               ValidIssuer = builder.Configuration["Jwt:Issuer"],
+               ValidAudience = builder.Configuration["Jwt:Audience"],
+                ValidateLifeTimes = true;
+               IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+           };
+       });
 
     var app = builder.Build();
 

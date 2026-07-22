@@ -1,7 +1,11 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using UserService.Data;
 using UserService.Middleware;
+using UserService.Services;
 
 
 Log.Logger = new LoggerConfiguration()
@@ -30,6 +34,30 @@ try
         options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")
             ?? "Data Source=user.db"));
 
+
+    // add the Jwt config here 
+    builder.Services.AddScoped<TokenService>();
+
+    var jwtKey = builder.Configuration["Jwt:Key"]
+        ?? throw new InvalidOperationException("Jwt:Key is not configured. Run 'dotnet user-secrets set \"Jwt:Key\" \"...\"'.");
+
+    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                ValidAudience = builder.Configuration["Jwt:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+            };
+        });
+
+    builder.Services.AddAuthorization();
+
     var app = builder.Build();
 
 
@@ -51,6 +79,7 @@ try
     app.UseSerilogRequestLogging();
     app.UseMiddleware<ExceptionHandlingMiddleware>();
 
+    app.UseAuthentication();
     app.UseAuthorization();
     app.MapControllers();
 

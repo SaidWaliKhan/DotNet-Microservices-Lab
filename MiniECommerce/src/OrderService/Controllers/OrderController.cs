@@ -1,13 +1,16 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OrderService.Data;
 using OrderService.Models;
-using OrderService.Services.HttpServices;
+using OrderService.Services.HttpService;
 
 namespace OrderService.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class OrdersController : ControllerBase
 {
     private readonly OrderDbContext _db;
@@ -32,9 +35,13 @@ public class OrdersController : ControllerBase
     public async Task<ActionResult<Order>> Create(CreateOrderRequest request)
     {
         // Ask the user first: does this user exist?
-        var user = await _userServiceClient.GetUserAsync(request.UserId);
+        var userId = GetUserIdFromToken();
+        if (userId is null)
+            return Unauthorized("Token did not contain a valid user id");
+
+        var user = await _userServiceClient.GetUserAsync(userId.Value);
         if (user is null)
-            return NotFound($"User {request.UserId} not found.");
+            return NotFound($"User {userId} not found.");
 
         // Does this product exist?
         var product = await _productClient.GetProductAsync(request.ProductId);
@@ -88,5 +95,27 @@ public class OrdersController : ControllerBase
         var order = await _db.Orders.FindAsync(id);
         if (order is null) return NotFound();
         return Ok(order);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var order = await _db.Orders.FindAsync(id);
+        if (order == null)
+            return NotFound();
+
+        _db.Orders.Remove(order);
+        await _db.SaveChangesAsync();
+
+        return NoContent();
+    }
+
+    // pull the sub from the current http req
+    private int? GetUserIdFromToken()
+    {
+        var subClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+        ?? User.FindFirst("sub")?.Value;
+
+        return int.TryParse(subClaim, out var userId) ? userId : null; 
     }
 }

@@ -4,7 +4,7 @@ namespace OrderService.Middleware;
 
 public class CorrelationIdMiddleware
 {
-    public const string HeaderName = "X-CorrelationId-123";
+    public const string HeaderName = "X-CorrelationId";
     private readonly RequestDelegate _next;
 
     public CorrelationIdMiddleware(RequestDelegate requestDelegate)

@@ -4,7 +4,7 @@ namespace UserService.Middleware;
 
 public class CorrelationIdMiddleware
 {
-    private const string HeaderName = "X-CorrelationId-123";
+    private const string HeaderName = "X-CorrelationId";
     private readonly RequestDelegate _next;
 
     public CorrelationIdMiddleware(RequestDelegate requestDelegate)

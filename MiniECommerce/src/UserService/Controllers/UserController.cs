@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UserService.Data;
@@ -8,6 +9,8 @@ namespace UserService.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]   // <-- add this line; requires a valid token for every action in this controller
+
 public class UsersController : ControllerBase
 {
     private readonly UserDbContext _db;
@@ -18,51 +21,21 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<User>>> GetAll()
+    public async Task<ActionResult<IEnumerable<UserResponse>>> GetAll()
     {
-        return Ok(await _db.Users.ToListAsync());
+        var user = await _db.Users.AsTracking().ToListAsync();
+        return Ok(user.Select(UserResponse.FromEntity));
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<User>> GetById(int id)
+    public async Task<ActionResult<UserResponse>> GetById(int id)
     {
-        var user = await _db.Users.FindAsync(id);
+        var user = await _db.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
         if (user is null) return NotFound();
-        return Ok(user);
+        return Ok(UserResponse.FromEntity(user));
     }
 
-    [HttpPost]
-    public async Task<ActionResult<User>> Create(CreateUserRequest request)
-    {
-        // Fast path: catches the common case with a clean, cheap check.
-        var emailExists = await _db.Users.AnyAsync(u => u.Email == request.Email);
-        if (emailExists)
-            return Conflict($"A user with email '{request.Email}' already exists.");
-
-        var user = new User
-        {
-            Name = request.Name,
-            Email = request.Email
-        };
-
-        _db.Users.Add(user);
-
-        try
-        {
-            await _db.SaveChangesAsync();
-        }
-        catch (DbUpdateException)
-        {
-            // Backstop for the race condition: if two requests slipped past the
-            // AnyAsync check at nearly the same time, the DB's unique index
-            // rejects the second insert here instead of corrupting your data.
-            return Conflict($"A user with email '{request.Email}' already exists.");
-        }
-
-        return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
-    }
-
-
+    
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {

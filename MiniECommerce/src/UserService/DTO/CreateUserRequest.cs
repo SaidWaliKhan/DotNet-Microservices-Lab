@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using UserService.Models;
 
 namespace UserService.DTO;
 
@@ -11,3 +12,14 @@ public record CreateUserRequest(
     [property: EmailAddress(ErrorMessage = "Email must be a valid email address.")]
     string Email
 );
+
+public record UserResponse(int Id, string Name, string Eamil)
+{
+    public static UserResponse FromEntity(User user) =>
+    new(user.Id, user.Name, user.Email);
+
+}
+
+public record AuthResponse(
+    string Token,
+    UserResponse User);
