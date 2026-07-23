@@ -1,8 +1,8 @@
-// Controllers/AuthController.cs
+// Controllers/AuthController.cs — final corrected version
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UserService.Data;
-using UserService.DTO;
+using UserService.DTOs;
 using UserService.Models;
 using UserService.Services;
 
@@ -13,12 +13,14 @@ namespace UserService.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly UserDbContext _db;
-    private readonly TokenService _tokenService;
+    private readonly IJwtTokenService _tokenService;
+    private readonly IPasswordHasherService _passwordHasher;
 
-    public AuthController(UserDbContext db, TokenService tokenService)
+    public AuthController(UserDbContext db, IJwtTokenService tokenService, IPasswordHasherService passwordHasher)
     {
         _db = db;
         _tokenService = tokenService;
+        _passwordHasher = passwordHasher;
     }
 
     [HttpPost("register")]
@@ -32,7 +34,7 @@ public class AuthController : ControllerBase
         {
             Name = request.Name,
             Email = request.Email,
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password)
+            PasswordHash = _passwordHasher.Hash(request.Password)
         };
 
         _db.Users.Add(user);
@@ -46,8 +48,8 @@ public class AuthController : ControllerBase
             return Conflict($"A user with email '{request.Email}' already exists.");
         }
 
-        var token = _tokenService.GenerateToken(user);
-        return Ok(new AuthResponse(token, UserResponse.FromEntity(user)));
+        var (token, expiresAtUtc) = _tokenService.GenerateToken(user);
+        return Ok(new AuthResponse(token, expiresAtUtc, UserResponse.FromEntity(user)));
     }
 
     [HttpPost("login")]
@@ -55,10 +57,10 @@ public class AuthController : ControllerBase
     {
         var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
 
-        if (user is null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+        if (user is null || !_passwordHasher.Verify(request.Password, user.PasswordHash))
             return Unauthorized("Invalid email or password.");
 
-        var token = _tokenService.GenerateToken(user);
-        return Ok(new AuthResponse(token, UserResponse.FromEntity(user)));
+        var (token, expiresAtUtc) = _tokenService.GenerateToken(user);
+        return Ok(new AuthResponse(token, expiresAtUtc, UserResponse.FromEntity(user)));
     }
 }

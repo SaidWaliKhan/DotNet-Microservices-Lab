@@ -191,7 +191,6 @@
 /home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/ProductService/bin/Debug/net10.0/ProductService.dll
 /home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/ProductService/bin/Debug/net10.0/ProductService.pdb
 /home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/ProductService/bin/Debug/net10.0/Humanizer.dll
-/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/ProductService/bin/Debug/net10.0/Microsoft.AspNetCore.OpenApi.dll
 /home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/ProductService/bin/Debug/net10.0/Microsoft.Build.Framework.dll
 /home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/ProductService/bin/Debug/net10.0/Microsoft.CodeAnalysis.dll
 /home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/ProductService/bin/Debug/net10.0/Microsoft.CodeAnalysis.CSharp.dll
@@ -343,3 +342,11 @@
 /home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/ProductService/bin/Debug/net10.0/Serilog.Sinks.Console.dll
 /home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/ProductService/bin/Debug/net10.0/Serilog.Sinks.Debug.dll
 /home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/ProductService/bin/Debug/net10.0/Serilog.Sinks.File.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/ProductService/bin/Debug/net10.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/ProductService/bin/Debug/net10.0/Microsoft.IdentityModel.Abstractions.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/ProductService/bin/Debug/net10.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/ProductService/bin/Debug/net10.0/Microsoft.IdentityModel.Logging.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/ProductService/bin/Debug/net10.0/Microsoft.IdentityModel.Protocols.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/ProductService/bin/Debug/net10.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/ProductService/bin/Debug/net10.0/Microsoft.IdentityModel.Tokens.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/ProductService/bin/Debug/net10.0/System.IdentityModel.Tokens.Jwt.dll

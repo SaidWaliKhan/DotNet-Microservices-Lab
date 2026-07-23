@@ -1,4 +1,7 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using ProductService.Data;
 using ProductService.Middleware;
 using Serilog;
@@ -24,13 +27,14 @@ try
 
     var builder = WebApplication.CreateBuilder(args);
 
-    // replace the existing ILogger 
+    // replace the existing ILogger behavoir
     builder.Host.UseSerilog();
 
     // 1. Register services here
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+    
 
     // Register our DbContext, pointing at a local SQLite file.
     // Each microservice gets its OWN database file - that's the whole point.
@@ -39,8 +43,8 @@ try
             ?? "Data Source = product.db"));
 
     // add the jwt 
-    var jwtKey = builder.Configuration["Jwt:Key"]
-        ?? throw new InvalidOperationException("Jwt:Key is not configured.");
+    var jwtSigninKey = builder.Configuration["Jwt:SigningKey"]
+        ?? throw new InvalidOperationException("Jwt:SigninigKey is not configured.");
 
     builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         .AddJwtBearer(options =>
@@ -53,7 +57,7 @@ try
                 ValidateIssuerSigningKey = true,
                 ValidIssuer = builder.Configuration["Jwt:Issuer"],
                 ValidAudience = builder.Configuration["Jwt:Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSigninKey))
             };
         });
 

@@ -8,26 +8,46 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.9" />
 
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.10">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    <!-- ASP.NET Core -->
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi"
+                      Version="10.0.9" />
+
+    <!-- Entity Framework Core -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design"
+                      Version="10.0.10">
+      <IncludeAssets>
+        runtime; build; native; contentfiles; analyzers; buildtransitive
+      </IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.10" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
 
-     <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
-      <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite"
+                      Version="10.0.10" />
+
+    <!-- JWT Authentication -->
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer"
+                      Version="10.0.10" />
+
+    <!-- JWT token creation/reading -->
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt"
+                      Version="8.19.2" />
+
+    <!-- Password hashing -->
+    <PackageReference Include="BCrypt.Net-Next"
+                      Version="4.0.3" />
+
+    <!-- API documentation -->
+    <PackageReference Include="Swashbuckle.AspNetCore"
+                      Version="10.2.3" />
+
+    <!-- Logging -->
+    <PackageReference Include="Serilog.AspNetCore"
+                      Version="8.0.1" />
+
+    <PackageReference Include="Serilog.Sinks.Console"
+                      Version="5.0.1" />
+
   </ItemGroup>
-
-  <ItemGroup>
-  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.1" />
-  <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="10.0.1" />
-  
-  <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.15.0" />
-  <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
-
-</ItemGroup>
 
 </Project>

@@ -2,14 +2,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UserService.Data;
-using UserService.DTO;
+using UserService.DTOs;
 using UserService.Models;
 
 namespace UserService.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize]   // <-- add this line; requires a valid token for every action in this controller
+[Authorize]
 
 public class UsersController : ControllerBase
 {

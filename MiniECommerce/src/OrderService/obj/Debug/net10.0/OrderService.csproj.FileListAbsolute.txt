@@ -316,3 +316,11 @@
 /home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/bin/Debug/net10.0/Serilog.Sinks.Console.dll
 /home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/bin/Debug/net10.0/Serilog.Sinks.Debug.dll
 /home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/bin/Debug/net10.0/Serilog.Sinks.File.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/bin/Debug/net10.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/bin/Debug/net10.0/Microsoft.IdentityModel.Abstractions.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/bin/Debug/net10.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/bin/Debug/net10.0/Microsoft.IdentityModel.Logging.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/bin/Debug/net10.0/Microsoft.IdentityModel.Protocols.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/bin/Debug/net10.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/bin/Debug/net10.0/Microsoft.IdentityModel.Tokens.dll
+/home/said-wali-ayyan/Desktop/DotNet-Microservices-Lab/MiniECommerce/src/OrderService/bin/Debug/net10.0/System.IdentityModel.Tokens.Jwt.dll

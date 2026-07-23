@@ -33,11 +33,14 @@ try
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
+
     // needs a correlationdelagatorHandler can read the current http request(httpContext) like correlationId from inside a class that is not controller
     builder.Services.AddHttpContextAccessor();
     builder.Services.AddTransient<CorrelationIdDelegatingHandler>();
+    builder.Services.AddTransient<AuthHeaderForwardingHandler>();
 
-    // register db here
+
+    // register db 
     builder.Services.AddDbContext<OrderDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")
         ?? "Data Source = order.db"));
@@ -56,34 +59,20 @@ try
     .AddHttpMessageHandler<CorrelationIdDelegatingHandler>()
 
     // This is the resilience part: if ProductService is briefly unavailable
-    // (e.g. still starting up in Docker), retry 3 times before giving up.
-
-    .AddPolicyHandler(HttpPolicyExtensions
-    .HandleTransientHttpError()
-    .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromMilliseconds(500 * retryAttempt)));
-
-    // for user 
-    builder.Services.AddHttpClient<UserServiceClient>(client =>
-    {
-        var baseUrl = builder.Configuration["Services:UserService"]
-            ?? "http://localhost:5003";
-        client.BaseAddress = new Uri(baseUrl);
-        client.Timeout = TimeSpan.FromSeconds(5);
-    })
-
-    .AddHttpMessageHandler<CorrelationIdDelegatingHandler>()
 
     .AddPolicyHandler(HttpPolicyExtensions
     .HandleTransientHttpError()
     .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromMilliseconds(500 * retryAttempt)));
 
     //dd the jwt 
-    var jwtSettings = builder.Configuration["Jwt:SigningKey"] ??
+    var jwtSigningKey = builder.Configuration["Jwt:SigningKey"] ??
     throw new InvalidCastException("Jwt is missing in configuration");
 
     builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
        .AddJwtBearer(options =>
+
        {
+           options.MapInboundClaims = false;
            options.TokenValidationParameters = new TokenValidationParameters
            {
                ValidateIssuer = true,
@@ -92,8 +81,8 @@ try
                ValidateIssuerSigningKey = true,
                ValidIssuer = builder.Configuration["Jwt:Issuer"],
                ValidAudience = builder.Configuration["Jwt:Audience"],
-                ValidateLifeTimes = true;
-               IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+               IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSigningKey)),
+               ClockSkew = TimeSpan.FromSeconds(30)
            };
        });
 
@@ -121,6 +110,7 @@ try
     app.UseSerilogRequestLogging();
     app.UseMiddleware<ExceptionHandlingMiddleware>();
 
+    app.UseAuthentication();
     app.UseAuthorization();
     app.MapControllers();
 
