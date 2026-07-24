@@ -1,0 +1,13 @@
+
+
+
+
+var product = await db.Products
+    .FirstAsync(p => p.Id == productId);
+
+if (product.Stock >= quantity)
+{
+    product.Stock -= quantity;
+
+    await db.SaveChangesAsync();
+}

@@ -70,8 +70,9 @@ public class ProductsController : ControllerBase
         }
 
         return Ok();
-
     }
+
+
     [HttpPut("{id}/restore-stock/{quantity}")]
     [Authorize]
     public async Task<IActionResult> RestoreStock(int id, int quantity)
